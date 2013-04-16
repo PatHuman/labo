@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+  xml:lang="en" lang="en">
+	
+	
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   
+ 
+  <script type="text/javascript"  src="resources/js/labo.js"></script> 
+   
+   <ui:define name="content">
+      <h2>Team section</h2>
+
+     
+
+      <h:form id="reg">
+         <h2>Get your team involved</h2>
+          
+         <h:panelGrid columns="3" columnClasses="titleCell">
+            <h:outputLabel for="name" value="Name:"/>
+            <h:inputText id="name" value="#{newTeam.name}"/>
+            <h:message for="name" errorClass="invalid"/>
+
+            <h:outputLabel for="department"/>
+       		<h:selectOneMenu id="department"  value="#{newTeam.department}" >
+				  <f:selectItem itemLabel=" select Department" itemValue="" /> 
+				  <f:selectItems  value="#{departments}" />
+			</h:selectOneMenu>  
+			
+			
+			
+			
+			
+			
+            
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{teamController.register}" value="Register" styleClass="register"/>
+               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>
+            </h:panelGrid>
+         </p>
+      </h:form>
+      
+   
+      <div id="listOfItems"></div>
+      
+      
+      <h2>Teams</h2>
+      <h:panelGroup rendered="#{empty teams}">
+         <em>No registered Teams yet.</em>
+      </h:panelGroup>
+      <h:dataTable var="_team" value="#{teams}" rendered="#{not empty teams}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Id</f:facet>
+                #{_team.id}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Name</f:facet>
+                #{_team.name}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Department</f:facet>
+                #{_team.department}
+            </h:column>
+			<h:column>
+            <f:facet name="header">REST URL</f:facet>
+            <a href="#{request.contextPath}/rest/teams/#{_team.id}">/rest/team/#{_team.id}</a>
+         </h:column>
+         <f:facet name="footer">
+            REST URL for all teams: <a  href="#">/rest/teams</a>
+         </f:facet>
+      </h:dataTable>
+   </ui:define>
+</ui:composition>
+</html>

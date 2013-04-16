@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+     
+
+     <script type="text/javascript"  src="resources/js/labo.js"></script> 
+
+	 
+		
+      <h:form id="reg">
+         <h2>New Task</h2>
+         
+         <h:panelGrid columns="3" columnClasses="titleCell">
+            <h:outputLabel for="name" value="Task:"/>
+            <h:inputText id="name" value="#{newTask.name}" />
+            <h:message for="name" errorClass="invalid"/>
+
+            <h:outputLabel for="description" value="Description:"/>
+            <h:inputTextarea id="description"  value="#{newTask.description}" style="width : 244px; height : 72px;"/>
+            <h:message for="description" errorClass="invalid"/>
+
+            <h:outputLabel value="Details:"/>
+       		<select id="project_list"  value="#{newTask.project_id}"> </select>
+			<select id="user_list" value="#{listUser}" > </select>
+            <h:message for="project_list" errorClass="invalid"/>
+			<h:message for="user_list" errorClass="invalid"/>
+			
+		
+			
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{taskController.register}" value="Register" styleClass="register"/>
+               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>
+            </h:panelGrid>
+         </p>
+    
+         <input type="text" id="project_id" name="project_id" value="#{newTask.project}" class="hidden_inputs"  style=" width : 34px;"/>
+         <input type="text" id="user_id" name="user_id" value="#{newTask.owner}" class="hidden_inputs" style=" width : 34px;" />
+      
+      
+      </h:form>
+      
+      
+      
+      <h2>Tasks</h2>
+      <h:panelGroup rendered="#{empty tasks}">
+         <em>No registered tasks.</em>
+      </h:panelGroup>
+      <h:dataTable var="_task" value="#{tasks}" rendered="#{not empty tasks}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Id</f:facet>
+                #{_task.id}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Name</f:facet>
+                #{_task.name}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Email</f:facet>
+                #{_task.description}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Team</f:facet>
+                #{_task.owner}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Project</f:facet>
+            <a href="#"> #{_task.project_id}</a>
+         </h:column>
+         <f:facet name="footer">
+            REST URL for all Tasks: <a href="#">All tasks</a>
+         </f:facet>
+      </h:dataTable>
+      
+      
+      
+   </ui:define>
+</ui:composition>
