@@ -23,12 +23,21 @@
             <h:inputTextarea id="description"  value="#{newTask.description}" style="width : 244px; height : 72px;"/>
             <h:message for="description" errorClass="invalid"/>
 
-            <h:outputLabel value="Details:"/>
-       		<select id="project_list"  value="#{newTask.project_id}"> </select>
-			<select id="user_list" value="#{listUser}" > </select>
-            <h:message for="project_list" errorClass="invalid"/>
-			<h:message for="user_list" errorClass="invalid"/>
+            <h:outputLabel value="Project:"/>
+       		 
 			
+			<h:selectOneMenu id="project"  value="#{newTask.project}" >
+				  <f:selectItem itemLabel=" select Project" itemValue="" /> 
+				  <f:selectItems  value="#{projects}" />
+			</h:selectOneMenu>  
+			 <h:message for="project" errorClass="invalid"/>
+			 
+			 <h:outputLabel value="Assigned:"/>
+			 <h:selectOneMenu id="owner"  value="#{newTask.owner}" >
+				  <f:selectItem itemLabel=" select User" itemValue="" /> 
+				  <f:selectItems  value="#{members}" />
+			</h:selectOneMenu>  
+			 <h:message for="owner" errorClass="invalid"/>
 		
 			
          </h:panelGrid>
@@ -41,9 +50,7 @@
             </h:panelGrid>
          </p>
     
-         <input type="text" id="project_id" name="project_id" value="#{newTask.project}" class="hidden_inputs"  style=" width : 34px;"/>
-         <input type="text" id="user_id" name="user_id" value="#{newTask.owner}" class="hidden_inputs" style=" width : 34px;" />
-      
+        
       
       </h:form>
       
@@ -54,28 +61,29 @@
          <em>No registered tasks.</em>
       </h:panelGroup>
       <h:dataTable var="_task" value="#{tasks}" rendered="#{not empty tasks}" styleClass="simpletablestyle">
-         <h:column>
-            <f:facet name="header">Id</f:facet>
-                #{_task.id}
-            </h:column>
+        
          <h:column>
             <f:facet name="header">Name</f:facet>
                 #{_task.name}
             </h:column>
          <h:column>
-            <f:facet name="header">Email</f:facet>
+            <f:facet name="header">Description</f:facet>
                 #{_task.description}
             </h:column>
          <h:column>
-            <f:facet name="header">Team</f:facet>
-                #{_task.owner}
+            <f:facet name="header">Project</f:facet>
+                #{_task.project}
             </h:column>
          <h:column>
-            <f:facet name="header">Project</f:facet>
-            <a href="#"> #{_task.project_id}</a>
+            <f:facet name="header">Owner</f:facet>
+            <a href="#"> #{_task.owner}</a>
+         </h:column>
+         <h:column>
+            <f:facet name="header">REST URL</f:facet>
+            <a href="#{request.contextPath}/rest/tasks/#{_task.id}">/rest/projects/#{_project.id}</a>
          </h:column>
          <f:facet name="footer">
-            REST URL for all Tasks: <a href="#">All tasks</a>
+            REST URL for all members: <a href="#{request.contextPath}/rest/tasks">/rest/projects</a>
          </f:facet>
       </h:dataTable>
       

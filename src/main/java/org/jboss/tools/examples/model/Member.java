@@ -91,13 +91,13 @@ public class Member implements Serializable
    public String toString()
    {
       String result = "";
-      result += serialVersionUID;
+//      result += serialVersionUID;
       if (name != null && !name.trim().isEmpty())
          result += " " + name;
-      if (email != null && !email.trim().isEmpty())
-         result += " " + email;
-      if (team != null && !team.trim().isEmpty())
-         result += " " + team;
+//      if (email != null && !email.trim().isEmpty())
+//         result += " " + email;
+//      if (team != null && !team.trim().isEmpty())
+//         result += " " + team;
       return result;
    }
 }

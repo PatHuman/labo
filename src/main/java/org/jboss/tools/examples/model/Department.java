@@ -2,7 +2,9 @@ package org.jboss.tools.examples.model;
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Entity;
+
 import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,9 +12,14 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+
 import java.lang.Override;
+
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -85,6 +92,8 @@ public class Department implements java.io.Serializable
    }
 
    @Column
+   @NotEmpty(message = "Department please!")
+   @NotNull
    private String name;
 
    public String getName()

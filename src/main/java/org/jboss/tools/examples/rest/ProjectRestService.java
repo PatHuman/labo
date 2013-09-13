@@ -9,7 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
+import javax.ws.rs.core.MediaType;
 
 import org.jboss.tools.examples.model.Project;
 import org.jboss.tools.examples.model.Task;
@@ -23,7 +23,7 @@ public class ProjectRestService {
 	   private EntityManager em;
 
 	   @GET
-	   @Produces("text/xml")
+	   @Produces(MediaType.APPLICATION_JSON)
 	   public List<Project> listAllProjects() {
 	      // Use @SupressWarnings to force IDE to ignore warnings about "genericizing" the results of
 	      // this query
@@ -38,7 +38,7 @@ public class ProjectRestService {
 
 	   @GET
 	   @Path("/{id:[0-9][0-9]*}")
-	   @Produces("text/xml")
+	   @Produces(MediaType.APPLICATION_JSON)
 	   public Project lookupProjectById(@PathParam("id") long id) {
 		   
 		     return em.find(Project.class, id);
@@ -46,14 +46,14 @@ public class ProjectRestService {
 	   
 	   @GET
 	   @Path("/task/{id:[0-9][0-9]*}")
-	   @Produces("text/xml")
+	   @Produces(MediaType.APPLICATION_JSON)
 	   public Task lookupTaskById(@PathParam("id") long id) {
 	      return em.find(Task.class, id);
 	   }
 	   
 	   @GET
 	   @Path("/tasks")
-	   @Produces("text/xml")
+	   @Produces(MediaType.APPLICATION_JSON)
 	   public List<Task> listAllTasks() {
 	      
 	      @SuppressWarnings("unchecked")

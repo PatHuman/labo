@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.jboss.tools.examples.model.Department;
 
@@ -27,7 +28,7 @@ public class DepartmentRestService {
 	   private EntityManager em;
 
 	   @GET
-	   @Produces("text/xml")
+	   @Produces(MediaType.APPLICATION_JSON)
 	   public List<Department> departmentList() {
 	      // Use @SupressWarnings to force IDE to ignore warnings about "genericizing" the results of
 	      // this query
@@ -42,7 +43,7 @@ public class DepartmentRestService {
 
 	   @GET
 	   @Path("/{id:[0-9][0-9]*}")
-	   @Produces("text/xml")
+	   @Produces(MediaType.APPLICATION_JSON)
 	   public Department lookupDepartmentById(@PathParam("id") long id) {
 	      return em.find(Department.class, id);
 	   }

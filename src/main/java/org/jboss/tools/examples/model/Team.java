@@ -1,7 +1,9 @@
 package org.jboss.tools.examples.model;
 
 import javax.persistence.Entity;
+
 import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,10 +11,12 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import java.lang.Override;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import java.lang.Override;
 
 @Entity
 @XmlRootElement
@@ -80,8 +84,9 @@ public class Team implements java.io.Serializable
       return super.hashCode();
    }
 
-   
    @Column
+   @NotEmpty (message = "Name please!")
+   @NotNull
    private String name;
 
    public String getName()
@@ -95,6 +100,7 @@ public class Team implements java.io.Serializable
    }
 
    @Column
+   @NotNull(message = "Department please!")
    private String department;
 
    public String getDepartment()
@@ -112,8 +118,8 @@ public class Team implements java.io.Serializable
       String result = "";
       if (name != null && !name.trim().isEmpty())
          result += name;
-      if (department != null && !department.trim().isEmpty())
-         result += " " + department;
+   //   if (department != null && !department.trim().isEmpty())
+      //   result += " " + department;
       return result;
    }
 }

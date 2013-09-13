@@ -2,19 +2,19 @@ package org.jboss.tools.examples.data;
 
 
 
+import org.jboss.tools.examples.model.Department;
 import org.jboss.tools.examples.model.Member;
 import org.jboss.tools.examples.model.Team;
 
 
 
-import java.util.List;
 
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
-
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
@@ -33,12 +33,13 @@ import javax.persistence.criteria.Root;
 @RequestScoped
 public class TeamListProducer {
 	
-	 @Inject
+	   @Inject
 	   private EntityManager em;
 
+	    
 	  
 	   private List<Team> teams;
-	   private List<Tuple> teamList;
+	  // private List<Tuple> teamList;
 	   
  
 	   @Produces
@@ -47,11 +48,11 @@ public class TeamListProducer {
 	      return teams ;
 	   }
 	   
-	   @Produces
+	 /*  @Produces
 	   @Named
 	   public List<Tuple> getList() {
 	      return teamList ;
-	   }
+	   }*/
 
 	   public void onTeamListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Team team) {
 	      retrieveAllTeamsOrderedByName();
@@ -61,7 +62,7 @@ public class TeamListProducer {
 	     
 		  
 		    
-	   /*
+	   
 	   @PostConstruct
 	   public void retrieveAllTeamsOrderedByName() {
 		   
@@ -77,11 +78,11 @@ public class TeamListProducer {
 	      
 	     
 	  
-	   }*/
+	   }
 	   
 	      
  
-	   @PostConstruct
+	  /* @PostConstruct
 	   public void retrieveAllTeamsOrderedByName() {
 		      
 		      
@@ -93,6 +94,6 @@ public class TeamListProducer {
 				cq.multiselect(team.get("name"));
 				teamList=  em.createQuery(cq).getResultList();
 				 
-		   }
+		   }*/
 
 }

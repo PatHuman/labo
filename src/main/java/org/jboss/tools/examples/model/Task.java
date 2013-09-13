@@ -1,68 +1,51 @@
 package org.jboss.tools.examples.model;
 
 import javax.persistence.Entity;
+
 import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Version;
+
 import java.lang.Override;
+
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@XmlRootElement
 public class Task implements Serializable
 {
 
    @Id
-   private @GeneratedValue(strategy = GenerationType.AUTO)
+   @GeneratedValue(strategy = GenerationType.AUTO)
    @Column(name = "id", updatable = false, nullable = false)
-   Long id = null;
+   private Long id = null;
    @Version
-   private @Column(name = "version")
-   int version = 1;
+   @Column(name = "version")
+   private int version = 0;
 
    @Column
+   @NotEmpty(message = "Task name please")
    private String name;
 
    @Column
-   private @Size(message = "[20|1000]", min = 20, max = 1000)
-   String description;
+   @NotNull(message = "Please describe")
+   @Size(message = "Must be <10 and <1000", min = 10, max = 1000)
+   private String description;
 
    @Column
+   @NotEmpty(message = "select a project please")
    private String project;
 
    @Column
+   @NotEmpty(message = "select a user please")
    private String owner;
-   
-   @ManyToOne
-   @JoinColumn(name="project_id")
-   private Project project_id;
 
-   public Project getProject_id() {
-	return project_id;
-}
-
-public void setProject_id(Project project_id) {
-	this.project_id = project_id;
-}
-
-public Member getOwner_id() {
-	return owner_id;
-}
-
-public void setOwner_id(Member owner_id) {
-	this.owner_id = owner_id;
-}
-
-@ManyToOne
-   @JoinColumn(name="owner_id")
-   private Member owner_id;
-   
    public Long getId()
    {
       return this.id;
@@ -155,17 +138,18 @@ public void setOwner_id(Member owner_id) {
       this.owner = owner;
    }
 
+   @Override
    public String toString()
    {
-      String result = "";
+      String result = getClass().getSimpleName() + " ";
       if (name != null && !name.trim().isEmpty())
-         result += name;
-      if (description != null && !description.trim().isEmpty())
-         result += " " + description;
-      if (project != null && !project.trim().isEmpty())
-         result += " " + project;
-      if (owner != null && !owner.trim().isEmpty())
-         result += " " + owner;
+         result += "name: " + name;
+//      if (description != null && !description.trim().isEmpty())
+//         result += ", description: " + description;
+//      if (project != null && !project.trim().isEmpty())
+//         result += ", project: " + project;
+//      if (owner != null && !owner.trim().isEmpty())
+//         result += ", owner: " + owner;
       return result;
    }
 }

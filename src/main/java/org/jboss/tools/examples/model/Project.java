@@ -1,7 +1,9 @@
 package org.jboss.tools.examples.model;
 
 import javax.persistence.Entity;
+
 import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +11,10 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+
 import java.lang.Override;
+
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -80,6 +85,7 @@ public class Project implements java.io.Serializable
    }
 
    @Column
+   @NotNull(message = "project name please!")
    private String name;
 
    public String getName()
@@ -107,6 +113,7 @@ public class Project implements java.io.Serializable
    }
 
    @Column
+   @NotNull(message = "select a team")
    private String owner;
 
    public String getOwner()
@@ -124,10 +131,10 @@ public class Project implements java.io.Serializable
       String result = "";
       if (name != null && !name.trim().isEmpty())
          result += name;
-      if (description != null && !description.trim().isEmpty())
-         result += " " + description;
-      if (owner != null && !owner.trim().isEmpty())
-         result += " " + owner;
+     // if (description != null && !description.trim().isEmpty())
+     //    result += " " + description;
+     // if (owner != null && !owner.trim().isEmpty())
+     //    result += " " + owner;
       return result;
    }
 }

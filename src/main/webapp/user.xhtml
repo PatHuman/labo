@@ -24,7 +24,7 @@
             <h:outputLabel for="team"/>
        		<h:selectOneMenu id="team"  value="#{newMember.team}" >
 				  <f:selectItem itemLabel=" select team" itemValue="" /> 
-				  <f:selectItems   value="#{teamList}"  />
+				  <f:selectItems   value="#{teams}"  />
 			</h:selectOneMenu> 
             <h:message for="team" errorClass="invalid"/>
          </h:panelGrid>
